@@ -2,6 +2,6 @@
 
 Desenvolvendo Api usando o padrão Domain Driven Design significa Projeto Orientado a Domínio
 
-![ScreenShot](https://{http://www.agileandart.com/wp-content/uploads/2010/07/Screen-shot-2010-07-16-at-09.50.18.png})
+![ScreenShot](http://www.agileandart.com/wp-content/uploads/2010/07/Screen-shot-2010-07-16-at-09.50.18.png)
 
 
