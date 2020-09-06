@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
-using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.Repository;
 using Api.Domain.Interfaces.Services.User;
 
 namespace Api.Service.Services
 {
     public class UserService : IUserService
     {
-        private IRepository<UserEntity> _repository;
+        private readonly IRepository<UserEntity> _repository;
 
         public UserService(IRepository<UserEntity> repository)
         {

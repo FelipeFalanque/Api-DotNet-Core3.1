@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Data.Context;
 using Api.Domain.Entities;
-using Api.Domain.Interfaces;
+using Api.Domain.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data.Repository
@@ -11,7 +11,7 @@ namespace Api.Data.Repository
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
         protected readonly MyContext _context;
-        private DbSet<T> _dataset;
+        private readonly DbSet<T> _dataset;
         public BaseRepository(MyContext context)
         {
             _context = context;
