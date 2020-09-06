@@ -6,6 +6,8 @@ Desenvolvendo Api usando o padrão Domain Driven Design significa Projeto Orient
 
 ###Alguns comandos dotnet
 
+|TOPO|
+|****|
 |AAAA|
 |BBBB|
 
