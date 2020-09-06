@@ -8,8 +8,8 @@ Desenvolvendo Api usando o padrão Domain Driven Design significa Projeto Orient
 
 # Table
 
-|TOPO|TOPO|
-|****|****|
-|AAAA|AAAA|
-|BBBB|BBBB|
+| TOPO | TOPO |
+| **** | **** |
+| AAAA | AAAA |
+| BBBB | BBBB |
 
