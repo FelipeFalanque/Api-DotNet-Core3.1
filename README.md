@@ -6,6 +6,7 @@ Desenvolvendo Api usando o padrão Domain Driven Design significa Projeto Orient
 
 ### Alguns comandos dotnet
 
+Seconds |
 --- |
 Seconds |
 Attempt |
