@@ -22,26 +22,16 @@ namespace Api.Application.Controllers
         [HttpPost]
         public async Task<object> Login([FromBody] Login login)
         {
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid || login == null)
                 return BadRequest(ModelState);
-            }
-            if (login == null)
-            {
-                return BadRequest(ModelState);
-            }
 
             try
             {
                 var result = await _service.SelectByEmail(login.Email);
                 if (result != null)
-                {
                     return result;
-                }
                 else
-                {
                     return NotFound();
-                }
             }
             catch (ArgumentException e)
             {
