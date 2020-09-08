@@ -1,10 +1,12 @@
 using System;
 using Api.CrossCutting.DependencyInjection;
+using Api.Domain.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -23,9 +25,18 @@ namespace application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
-            services.AddControllers();
+
+            services.AddSingleton(new SigningConfigurations());
+
+            var tokenConfigurations = new TokenConfigurations();
+            new ConfigureFromConfigurationOptions<TokenConfigurations>(Configuration.GetSection("TokenConfigurations")).Configure(tokenConfigurations);
+
+            services.AddSingleton(tokenConfigurations);
+
             services.AddSwaggerGen(c => ConfigurationSwagger(c));
         }
         
