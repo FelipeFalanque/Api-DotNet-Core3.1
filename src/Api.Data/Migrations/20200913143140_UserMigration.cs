@@ -15,7 +15,8 @@ namespace Data.Migrations
                     CreateAt = table.Column<DateTime>(nullable: true),
                     UpdateAt = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 60, nullable: false),
-                    Email = table.Column<string>(maxLength: 100, nullable: true)
+                    Email = table.Column<string>(maxLength: 100, nullable: true),
+                    Role = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {

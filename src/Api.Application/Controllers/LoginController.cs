@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Api.Domain.DTOs;
+using Api.Domain.DTOs.Login;
 using Api.Domain.Interfaces.Services.Login;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ namespace Api.Application.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<object> Login([FromBody] Login login)
+        public async Task<object> Login([FromBody] LoginDTO login)
         {
             if (!ModelState.IsValid || login == null)
                 return BadRequest(ModelState);

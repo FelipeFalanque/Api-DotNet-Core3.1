@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Domain.DTOs
+namespace Api.Domain.DTOs.Login
 {
-    public class Login
+    public class LoginDTO
     {
         [Required(ErrorMessage = "Email é um campo obrigatório para Login")]
         [EmailAddress(ErrorMessage = "E-mail em formato inválido.")]

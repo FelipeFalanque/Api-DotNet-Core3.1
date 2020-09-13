@@ -14,6 +14,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication;
+using Api.CrossCutting.Mapping;
+using Api.CrossCutting.Mappings;
+using AutoMapper;
 
 namespace application
 {
@@ -33,6 +36,8 @@ namespace application
 
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
+
+            services.AddSingleton(ConfigurationMapper());
 
             SigningConfigurations signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
@@ -163,6 +168,20 @@ namespace application
                     .RequireAuthenticatedUser().Build());
             };
         }
+
+        private IMapper ConfigurationMapper()
+        {
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DtoToModelProfile());
+                cfg.AddProfile(new EntityToDtoProfile());
+                cfg.AddProfile(new ModelToEntityProfile());
+            });
+
+            IMapper mapper = config.CreateMapper();
+            return mapper;
+        }
+
         #endregion
 
     }

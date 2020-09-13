@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Api.Domain.DTOs.User;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
+using Api.Domain.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +24,7 @@ namespace Api.Application.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = Constantes.Papeis.AdministratorOrClient)]
         public async Task<ActionResult> GetAll()
         {
 
@@ -56,7 +58,12 @@ namespace Api.Application.Controllers
             }
             try
             {
-                return Ok(await _service.Get(id));
+                var user = await _service.Get(id);
+
+                if(user != null)
+                    return Ok(user);
+                else
+                    return NotFound("usuario não encontrado");
             }
             catch (ArgumentException e)
             {
@@ -65,7 +72,7 @@ namespace Api.Application.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UserEntity user)
+        public async Task<ActionResult> Post([FromBody] UserCreateDTO user)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +97,7 @@ namespace Api.Application.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] UserEntity user)
+        public async Task<ActionResult> Put([FromBody] UserUpdateDTO user)
         {
             if (!ModelState.IsValid)
             {

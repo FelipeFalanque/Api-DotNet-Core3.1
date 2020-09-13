@@ -21,6 +21,10 @@ namespace Api.Data.Mapping
 
             builder.Property(u => u.Email)
                    .HasMaxLength(100);
+
+            builder.Property(u => u.Role)
+                   .HasMaxLength(100)
+                   .IsRequired();      
         }
     }
 }
