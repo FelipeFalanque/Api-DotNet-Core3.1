@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers
@@ -19,8 +22,16 @@ namespace Api.Application.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> GetAll()
         {
+
+//            var identity = HttpContext.User.Identity as ClaimsIdentity;
+//            if (identity != null)
+//            {
+//                IEnumerable<Claim> claims = identity.Claims; 
+//            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);  // 400 Bad Request - Solicitação Inválida

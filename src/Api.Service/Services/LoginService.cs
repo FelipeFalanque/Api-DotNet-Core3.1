@@ -42,6 +42,7 @@ namespace Api.Service.Services
                     {
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.UniqueName, userDataBase.Email),
+                        new Claim(ClaimTypes.Role, "Administrator")
                     }
                 );
 
