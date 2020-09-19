@@ -49,6 +49,26 @@ namespace Data.Migrations
                         .IsUnique();
 
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("eca959fb-e684-4c13-97df-27dfb887b3b3"),
+                            CreateAt = new DateTime(2020, 9, 19, 10, 48, 8, 336, DateTimeKind.Local).AddTicks(8500),
+                            Email = "adm@adm.com",
+                            Name = "Administrador",
+                            Role = "Administrator",
+                            UpdateAt = new DateTime(2020, 9, 19, 10, 48, 8, 338, DateTimeKind.Local).AddTicks(6359)
+                        },
+                        new
+                        {
+                            Id = new Guid("45ba8fc0-db73-43e8-a2d4-f0115f9eb5f0"),
+                            CreateAt = new DateTime(2020, 9, 19, 10, 48, 8, 338, DateTimeKind.Local).AddTicks(7290),
+                            Email = "user@example.com",
+                            Name = "Cliente",
+                            Role = "Client",
+                            UpdateAt = new DateTime(2020, 9, 19, 10, 48, 8, 338, DateTimeKind.Local).AddTicks(7312)
+                        });
                 });
 #pragma warning restore 612, 618
         }

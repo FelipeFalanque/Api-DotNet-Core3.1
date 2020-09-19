@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Authentication;
 using Api.CrossCutting.Mapping;
 using Api.CrossCutting.Mappings;
 using AutoMapper;
+using Api.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace application
 {
@@ -76,6 +78,8 @@ namespace application
             {
                 endpoints.MapControllers();
             });
+
+            AplicarMigracoes(app);
         }
 
         #region Metodos Privados
@@ -182,6 +186,26 @@ namespace application
             return mapper;
         }
 
+        private void AplicarMigracoes(IApplicationBuilder app)
+        {
+            bool aplicarMigration = false;
+
+            bool.TryParse(
+                Environment.GetEnvironmentVariable("RUN_MIGRATION").ToLower(),
+                out aplicarMigration);
+
+            if (aplicarMigration)
+            {
+                using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    using (var context = service.ServiceProvider.GetService<MyContext>())
+                    {
+                        context.Database.Migrate();
+                    }
+                }
+            }
+        }
+        
         #endregion
 
     }
