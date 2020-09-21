@@ -26,17 +26,14 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "watch",
+            "label": "Data.Testes",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "watch",
-                "run",
-                "${workspaceFolder}/src/Api.Application/application.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "test",
+                "${workspaceFolder}/src/Api.Data.Test/Api.Data.Test.csproj"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": []
         }
     ]
 }

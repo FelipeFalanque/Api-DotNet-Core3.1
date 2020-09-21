@@ -42,5 +42,45 @@ namespace Api.Data.Test
                 Assert.Equal("Novo", registroCriado.Name);
             }
         }
+
+        [Fact(DisplayName = "DeveCriarEditarRemoverUmUsuario")]
+        [Trait("Cadastros", "User")]
+        public async Task DeveCriarEditarRemoverUmUsuario()
+        {
+            using (var context = _serviceProvider.GetService<MyContext>())
+            {
+                UserRepository _repositorio = new UserRepository(context);
+                UserEntity _entity = new UserEntity
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Novo",
+                    Email = "novo@novo.com",
+                    Role = Constantes.Papeis.Administrator,
+                    CreateAt = DateTime.Now,
+                    UpdateAt = DateTime.Now
+                };
+
+                var registroCriado = await _repositorio.InsertAsync(_entity);
+                
+                Assert.NotNull(registroCriado);
+                Assert.Equal("Novo", registroCriado.Name);
+                var idRegistroCriado = registroCriado.Id;
+
+                string nomeAlterado = "Name Alterado";
+                registroCriado.Name = nomeAlterado;
+
+                var registroAlterado = await _repositorio.UpdateAsync(registroCriado);
+
+                Assert.NotNull(registroAlterado);
+                Assert.Equal(nomeAlterado, registroAlterado.Name);
+
+                var resultado = await _repositorio.DeleteAsync(idRegistroCriado);
+
+                Assert.Equal(true, resultado);
+
+                var registroExcluido = await _repositorio.SelectAsync(idRegistroCriado);
+                Assert.Null(registroExcluido);
+            }
+        }
     }
 }
