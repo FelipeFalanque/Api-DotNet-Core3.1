@@ -15,7 +15,6 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication;
 using Api.CrossCutting.Mapping;
-using Api.CrossCutting.Mappings;
 using AutoMapper;
 using Api.Data.Context;
 using Microsoft.EntityFrameworkCore;

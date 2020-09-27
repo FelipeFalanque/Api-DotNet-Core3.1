@@ -29,7 +29,7 @@ namespace Api.Domain.Models
         private string _role;
         public string Role
         {
-            get { return _role; }
+            get { return _role == null ? Constantes.Papeis.Client : _role; }
             set
             {
                 _role = value == null ? Constantes.Papeis.Client : value;

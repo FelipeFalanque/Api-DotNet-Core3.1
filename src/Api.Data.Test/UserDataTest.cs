@@ -76,7 +76,7 @@ namespace Api.Data.Test
 
                 var resultado = await _repositorio.DeleteAsync(idRegistroCriado);
 
-                Assert.Equal(true, resultado);
+                Assert.True(resultado);
 
                 var registroExcluido = await _repositorio.SelectAsync(idRegistroCriado);
                 Assert.Null(registroExcluido);
