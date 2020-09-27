@@ -94,15 +94,5 @@ namespace Api.Service.Test.AutoMapper
             Assert.Equal(userDtoUpdate.Email, userModel.Email);
 
         }
-
-        [Fact(DisplayName = "É Possível Mapear os Modelos Create")]
-        public void E_Possivel_Mapear_os_Modelos_Create()
-        {
-            UserCreateDTO userCreateDTO = new UserCreateDTO() { Name = Faker.Name.FullName(), Email = Faker.Internet.Email() };
-
-            var model = Mapper.Map<UserModel>(userCreateDTO);
-            var entity = Mapper.Map<UserEntity>(model);
-            Mapper.Map<UserCreateResultDTO>(entity);
-        }
     }
 }
