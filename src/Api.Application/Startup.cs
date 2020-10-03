@@ -37,6 +37,7 @@ namespace application
 
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
+            ConfigureHelper.ConfigureDependenciesHelper(services);
 
             services.AddSingleton(ConfigurationMapper());
 

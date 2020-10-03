@@ -5,6 +5,7 @@ using Api.Domain.DTOs.User;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Repository;
 using Api.Domain.Interfaces.Services.User;
+using Api.Domain.Interfaces.Helpers.User;
 using Api.Domain.Models;
 using AutoMapper;
 
@@ -13,11 +14,16 @@ namespace Api.Service.Services
     public class UserService : IUserService
     {
         private readonly IRepository<UserEntity> _repository;
+        private readonly IUserHelper _userHelper;
         private readonly IMapper _mapper;
 
-        public UserService(IRepository<UserEntity> repository, IMapper mapper)
+        public UserService(
+            IRepository<UserEntity> repository,
+            IUserHelper userHelper,
+            IMapper mapper)
         {
             _repository = repository;
+            _userHelper = userHelper;
             _mapper = mapper;
         }
 
@@ -42,6 +48,7 @@ namespace Api.Service.Services
         {
             var model = _mapper.Map<UserModel>(user);
             var entity = _mapper.Map<UserEntity>(model);
+            _userHelper.AdicionarPrefixoNome(ref entity);
             var result = await _repository.InsertAsync(entity);
             return _mapper.Map<UserCreateResultDTO>(result);
         }
@@ -50,7 +57,7 @@ namespace Api.Service.Services
         {
             var model = _mapper.Map<UserModel>(user);
             var entity = _mapper.Map<UserEntity>(model);
-
+            _userHelper.AdicionarPrefixoNome(ref entity);
             var result = await _repository.UpdateAsync(entity);
             return _mapper.Map<UserUpdateResultDTO>(result);
         }

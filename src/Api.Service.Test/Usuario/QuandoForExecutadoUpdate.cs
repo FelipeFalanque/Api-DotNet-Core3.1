@@ -13,6 +13,10 @@ namespace Api.Service.Test.Usuario
         [Fact(DisplayName = "É Possivel executar o Método Update.")]
         public async Task E_Possivel_Executar_Metodo_Update()
         {
+
+            userDtoCreateResult.Name = userDtoCreate.Name;
+            userDtoCreateResult.Email = userDtoCreate.Email;
+
             _serviceMock = new Mock<IUserService>();
             _serviceMock.Setup(m => m.Post(userDtoCreate)).ReturnsAsync(userDtoCreateResult);
             _service = _serviceMock.Object;
