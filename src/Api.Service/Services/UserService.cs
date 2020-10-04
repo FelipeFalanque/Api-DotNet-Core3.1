@@ -48,7 +48,7 @@ namespace Api.Service.Services
         {
             var model = _mapper.Map<UserModel>(user);
             var entity = _mapper.Map<UserEntity>(model);
-            _userHelper.AdicionarPrefixoNome(ref entity);
+            //_userHelper.AdicionarPrefixoNome(ref entity);
             var result = await _repository.InsertAsync(entity);
             return _mapper.Map<UserCreateResultDTO>(result);
         }
@@ -57,7 +57,7 @@ namespace Api.Service.Services
         {
             var model = _mapper.Map<UserModel>(user);
             var entity = _mapper.Map<UserEntity>(model);
-            _userHelper.AdicionarPrefixoNome(ref entity);
+            //_userHelper.AdicionarPrefixoNome(ref entity);
             var result = await _repository.UpdateAsync(entity);
             return _mapper.Map<UserUpdateResultDTO>(result);
         }

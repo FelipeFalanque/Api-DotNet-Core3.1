@@ -23,16 +23,20 @@ namespace application
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            _environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment _environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfiguracaoTesteIntegracao();
+
             services.AddControllers();
 
             ConfigureService.ConfigureDependenciesService(services);
@@ -44,8 +48,7 @@ namespace application
             SigningConfigurations signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
 
-            var tokenConfigurations = new TokenConfigurations();
-            new ConfigureFromConfigurationOptions<TokenConfigurations>(Configuration.GetSection("TokenConfigurations")).Configure(tokenConfigurations);
+            TokenConfigurations tokenConfigurations = BuilderTokenConfigurations();
 
             services.AddAuthentication(ConfigurationAddAuthentication()).AddJwtBearer(ConfigurationAddJwtBearer(signingConfigurations, tokenConfigurations));
 
@@ -190,7 +193,7 @@ namespace application
         {
             bool aplicarMigration = false;
 
-            bool.TryParse(
+            Boolean.TryParse(
                 Environment.GetEnvironmentVariable("RUN_MIGRATION").ToLower(),
                 out aplicarMigration);
 
@@ -203,6 +206,30 @@ namespace application
                         context.Database.Migrate();
                     }
                 }
+            }
+        }
+
+        private TokenConfigurations BuilderTokenConfigurations()
+        {
+            TokenConfigurations tokenConfigurations = new TokenConfigurations();
+
+            tokenConfigurations.Audience = Convert.ToString(Environment.GetEnvironmentVariable("Audience"));
+            tokenConfigurations.Issuer = Convert.ToString(Environment.GetEnvironmentVariable("Issuer"));
+            tokenConfigurations.Seconds = Convert.ToInt32(Environment.GetEnvironmentVariable("Seconds"));
+
+            return tokenConfigurations;
+        }
+
+        private void ConfiguracaoTesteIntegracao()
+        {
+            if (_environment.IsEnvironment("Testing"))
+            {
+                Environment.SetEnvironmentVariable("DB_CONNECTION", "Persist Security Info=True;Server=localhost;Port=3306;DataBase=dbAPI_Integration;Uid=root;Pwd=root");
+                Environment.SetEnvironmentVariable("DATABASE", "MYSQL");
+                Environment.SetEnvironmentVariable("RUN_MIGRATION", "TRUE");
+                Environment.SetEnvironmentVariable("Audience", "ExemploAudience");
+                Environment.SetEnvironmentVariable("Issuer", "ExemploIssue");
+                Environment.SetEnvironmentVariable("Seconds", "28800");
             }
         }
         
