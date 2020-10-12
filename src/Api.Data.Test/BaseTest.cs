@@ -17,7 +17,7 @@ namespace Api.Data.Test
 
     public class DataBaseTest : IDisposable
     {
-        private string dataBaseName = $"dbApiTest_{Util.ObterNumeroMenorQue10EmDoisDigitos(DateTime.Now.Day)}_{Util.ObterNumeroMenorQue10EmDoisDigitos(DateTime.Now.Month)}_{DateTime.Now.Year}_{Util.ObterNumeroMenorQue10EmDoisDigitos(DateTime.Now.Hour)}_{Util.ObterNumeroMenorQue10EmDoisDigitos(DateTime.Now.Minute)}";
+        private string dataBaseName = $"dbApiTest_{Util.ObterNumeroMenorQue10EmDoisDigitos(DateTime.Now.Day)}_{Util.ObterNumeroMenorQue10EmDoisDigitos(DateTime.Now.Month)}_{DateTime.Now.Year}_{Util.ObterNumeroMenorQue10EmDoisDigitos(DateTime.Now.Hour)}_{Util.ObterNumeroMenorQue10EmDoisDigitos(DateTime.Now.Minute)}_{Guid.NewGuid().ToString().Replace("-", string.Empty)}";
         public ServiceProvider ServiceProvider {get; private set;}
 
         public DataBaseTest()
